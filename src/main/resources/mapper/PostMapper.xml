@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhangbao.eblog.mapper.PostMapper">
+
+    <select id="pagingByWrapper" resultType="com.zhangbao.eblog.vo.PostVo">
+        SELECT
+          p.*,
+          u.id as authorId,
+          u.username as authorName,
+          u.avatar as authorAvatar,
+
+          c.id as categoryId,
+          c.`name` as categoryName
+        FROM m_post p
+        LEFT JOIN m_user u ON u.id = p.user_id
+        LEFT JOIN m_category c ON c.id = p.category_id
+        ${ew.customSqlSegment}
+
+    </select>
+    <select id="pagingByMap" resultType="com.zhangbao.eblog.vo.PostVo">
+        SELECT
+          p.*,
+          u.id as authorId,
+          u.username as authorName,
+          u.avatar as authorAvatar,
+
+          c.id as categoryId,
+          c.`name` as categoryName
+        FROM m_post p
+        LEFT JOIN m_user u ON u.id = p.user_id
+        LEFT JOIN m_category c ON c.id = p.category_id
+        <where>
+            p.status = 0
+            <if test="map.categoryId !=null and map.categoryId !=''">
+                and p.category_id = #{map.categoryId}
+            </if>
+            <if test="map.userId !=null and map.userId !=''">
+                and p.user_id = #{map.userId}
+            </if>
+            <if test="map.level !=null and map.level !=''">
+                and p.level = #{map.level}
+            </if>
+            <if test="map.gtCreated !=null ">
+                and p.created &gt; #{map.gtCreated}
+            </if>
+        </where>
+            order by p.created desc
+    </select>
+    <select id="selectOnePost" resultType="com.zhangbao.eblog.vo.PostVo">
+        SELECT
+          p.*,
+          u.id as authorId,
+          u.username as authorName,
+          u.avatar as authorAvatar,
+
+          c.id as categoryId,
+          c.`name` as categoryName
+        FROM m_post p
+        LEFT JOIN m_user u ON u.id = p.user_id
+        LEFT JOIN m_category c ON c.id = p.category_id
+        ${ew.customSqlSegment}
+    </select>
+</mapper>
