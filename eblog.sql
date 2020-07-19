@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 80018
 File Encoding         : 65001
 
-Date: 2020-06-30 00:40:17
+Date: 2020-07-19 21:03:14
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -20,29 +20,30 @@ SET FOREIGN_KEY_CHECKS=0;
 -- ----------------------------
 DROP TABLE IF EXISTS `m_category`;
 CREATE TABLE `m_category` (
-  `id` bigint(32) NOT NULL AUTO_INCREMENT COMMENT '主键ID',
+  `id` bigint(32) NOT NULL COMMENT '主键ID',
   `name` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '标题',
   `content` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT '内容描述',
   `summary` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `icon` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '图标',
   `post_count` int(11) unsigned DEFAULT '0' COMMENT '该分类的内容数量',
   `order_num` int(11) DEFAULT NULL COMMENT '排序编码',
-  `parent_id` bigint(32) unsigned DEFAULT NULL COMMENT '父级分类的ID',
+  `parent_id` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '父级分类的ID',
   `meta_keywords` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'SEO关键字',
   `meta_description` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'SEO描述内容',
   `created` datetime DEFAULT NULL COMMENT '创建日期',
   `modified` datetime DEFAULT NULL,
   `status` tinyint(2) DEFAULT NULL,
+  `del_flag` int(11) DEFAULT '0' COMMENT '是否删除，0否，1是',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of m_category
 -- ----------------------------
-INSERT INTO `m_category` VALUES ('1', '提问', null, null, null, '0', null, null, null, null, '2020-04-28 22:36:48', null, '0');
-INSERT INTO `m_category` VALUES ('2', '分享', null, null, null, '0', null, null, null, null, '2020-04-28 22:36:48', null, '0');
-INSERT INTO `m_category` VALUES ('3', '讨论', null, null, null, '0', null, null, null, null, '2020-04-28 22:36:48', null, '0');
-INSERT INTO `m_category` VALUES ('4', '建议', null, null, null, '0', null, null, null, null, '2020-04-28 22:36:48', null, '0');
+INSERT INTO `m_category` VALUES ('1', '提问', null, null, null, '0', null, null, null, null, '2020-04-28 22:36:48', null, '0', '0');
+INSERT INTO `m_category` VALUES ('2', '分享', null, null, null, '0', null, null, null, null, '2020-04-28 22:36:48', null, '0', '0');
+INSERT INTO `m_category` VALUES ('3', '讨论', null, null, null, '0', null, null, null, null, '2020-04-28 22:36:48', null, '0', '0');
+INSERT INTO `m_category` VALUES ('4', '建议', null, null, null, '0', null, null, null, null, '2020-04-28 22:36:48', null, '0', '0');
 
 -- ----------------------------
 -- Table structure for m_comment
@@ -60,15 +61,34 @@ CREATE TABLE `m_comment` (
   `status` tinyint(2) DEFAULT NULL COMMENT '评论的状态',
   `created` datetime NOT NULL COMMENT '评论的时间',
   `modified` datetime DEFAULT NULL COMMENT '评论的更新时间',
+  `del_flag` int(11) DEFAULT '0' COMMENT '是否删除，0否，1是',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=1279754875202191384 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of m_comment
 -- ----------------------------
-INSERT INTO `m_comment` VALUES ('1', '我来了', '0', '3', '1', '1', '1', '1', null, '2020-06-26 21:01:05', '2020-06-26 21:01:05');
-INSERT INTO `m_comment` VALUES ('2', '2345你让他jet', '0', '3', '1', '1', '1', '1', null, '2020-06-26 23:32:09', '2020-06-26 23:32:09');
-INSERT INTO `m_comment` VALUES ('3', '6亩特叶檀', '0', '1', '1', '1', '1', '1', null, '2020-06-26 23:32:44', '2020-06-26 23:32:44');
+INSERT INTO `m_comment` VALUES ('1279754875202191363', '嗯 好好', null, '1279754797653704707', '7', '0', '0', '0', null, '2020-07-05 12:39:29', '2020-07-05 12:39:29', '0');
+INSERT INTO `m_comment` VALUES ('1279754875202191364', '1234', null, '1279754797653704707', '7', '0', '0', '0', null, '2020-07-05 12:58:11', '2020-07-05 12:58:11', '0');
+INSERT INTO `m_comment` VALUES ('1279754875202191365', '嗯 好的', null, '1279754797653704708', '6', '0', '0', '0', null, '2020-07-05 13:02:59', '2020-07-05 13:02:59', '0');
+INSERT INTO `m_comment` VALUES ('1279754875202191366', '234', null, '1279754797653704707', '6', '0', '0', '0', null, '2020-07-05 13:05:21', '2020-07-05 13:05:21', '0');
+INSERT INTO `m_comment` VALUES ('1279754875202191367', '突然進入地獄', null, '1279754797653704707', '6', '0', '0', '0', null, '2020-07-05 13:12:39', '2020-07-05 13:12:39', '0');
+INSERT INTO `m_comment` VALUES ('1279754875202191368', '而後讓他', null, '1279754797653704707', '6', '0', '0', '0', null, '2020-07-05 13:12:45', '2020-07-05 13:12:45', '0');
+INSERT INTO `m_comment` VALUES ('1279754875202191369', '3456', null, '1279754797653704708', '6', '0', '0', '0', null, '2020-07-05 13:17:39', '2020-07-05 13:17:39', '0');
+INSERT INTO `m_comment` VALUES ('1279754875202191370', '3456', null, '1279754797653704708', '6', '0', '0', '0', null, '2020-07-05 13:17:45', '2020-07-05 13:17:45', '0');
+INSERT INTO `m_comment` VALUES ('1279754875202191371', '你好', null, '1279754797653704708', '6', '0', '0', '0', null, '2020-07-05 13:24:27', '2020-07-05 13:24:27', '0');
+INSERT INTO `m_comment` VALUES ('1279754875202191372', '不错', null, '1279754797653704707', '6', '0', '0', '0', null, '2020-07-05 13:45:33', '2020-07-05 13:45:33', '0');
+INSERT INTO `m_comment` VALUES ('1279754875202191373', '@小明 666', null, '1279754797653704708', '1', '0', '0', '0', null, '2020-07-05 14:13:51', '2020-07-05 14:13:51', '0');
+INSERT INTO `m_comment` VALUES ('1279754875202191374', '@小明 小明好', null, '1279754797653704708', '7', '0', '0', '0', null, '2020-07-05 14:16:41', '2020-07-05 14:16:41', '1');
+INSERT INTO `m_comment` VALUES ('1279754875202191375', '@admin 好好好好', null, '1279754797653704708', '6', '0', '0', '0', null, '2020-07-05 14:17:41', '2020-07-05 14:17:41', '0');
+INSERT INTO `m_comment` VALUES ('1279754875202191376', '@小明 好好', null, '1279754797653704708', '7', '0', '0', '0', null, '2020-07-05 16:01:11', '2020-07-05 16:01:11', '1');
+INSERT INTO `m_comment` VALUES ('1279754875202191377', '哈哈哈', null, '1279754797653704708', '6', '0', '0', '0', null, '2020-07-05 16:02:29', '2020-07-05 16:02:29', '0');
+INSERT INTO `m_comment` VALUES ('1279754875202191378', '@小明  在不', null, '1279754797653704708', '7', '0', '0', '0', null, '2020-07-05 16:05:55', '2020-07-05 16:05:55', '1');
+INSERT INTO `m_comment` VALUES ('1279754875202191379', '在不', null, '1279754797653704708', '6', '0', '0', '0', null, '2020-07-05 16:06:58', '2020-07-05 16:06:58', '0');
+INSERT INTO `m_comment` VALUES ('1279754875202191380', '有人吗', null, '1279754797653704708', '6', '0', '0', '0', null, '2020-07-05 16:07:10', '2020-07-05 16:07:10', '0');
+INSERT INTO `m_comment` VALUES ('1279754875202191381', '@小明  小明同学', null, '1279754797653704708', '7', '0', '0', '0', null, '2020-07-05 16:08:29', '2020-07-05 16:08:29', '1');
+INSERT INTO `m_comment` VALUES ('1279754875202191382', '@小明 1234', null, '1279754797653704708', '7', '0', '0', '0', null, '2020-07-05 16:08:53', '2020-07-05 16:08:53', '1');
+INSERT INTO `m_comment` VALUES ('1279754875202191383', '@小明 23456', null, '1279754797653704708', '1', '0', '0', '0', null, '2020-07-05 16:11:27', '2020-07-05 16:11:27', '0');
 
 -- ----------------------------
 -- Table structure for m_post
@@ -85,20 +105,20 @@ CREATE TABLE `m_post` (
   `vote_down` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '反对人数',
   `view_count` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '访问量',
   `comment_count` int(11) NOT NULL DEFAULT '0' COMMENT '评论数量',
-  `recommend` tinyint(1) DEFAULT NULL COMMENT '是否为精华',
+  `recommend` tinyint(1) DEFAULT '0' COMMENT '是否为精华',
   `level` tinyint(2) NOT NULL DEFAULT '0' COMMENT '置顶等级',
-  `status` tinyint(2) DEFAULT NULL COMMENT '状态',
+  `status` tinyint(2) DEFAULT '0' COMMENT '状态',
   `created` datetime DEFAULT NULL COMMENT '创建日期',
   `modified` datetime DEFAULT NULL COMMENT '最后更新日期',
+  `del_flag` int(11) DEFAULT '0' COMMENT '是否删除，0否，1是',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=1279754797653704709 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of m_post
 -- ----------------------------
-INSERT INTO `m_post` VALUES ('1', 'Github上最值得学习的100个Java开源项目，涵盖各种技术栈！', ' 你有多久没好好学习一个开源项目了？\n\n你是否经常为找不到好的开源项目而烦恼？\n\n你是否为不知道怎么入手去看一个开源项目？\n\n你是否想看别人的项目学习笔记？\n\n你是否想跟着别人的项目搭建过程一步一步跟着做项目？\n\n为了让更多Java的开发者能更容易找到值得学习的开源项目，我搭建了这个Java开源学习网站，宗旨梳理Java知识，共享开源项目笔记。来瞧一瞧：\n\nimg[//image-1300566513.cos.ap-guangzhou.myqcloud.com/upload/images/20200414/473f73a3eb6f471e8154620a9c1d5306.png] \n\n网站截图中可以看出，点击筛选条件组合之后，再点击搜索就会搜索出对应的开源项目。\n\n比如打开renren-fast项目，可以看到具体项目的信息，以及模块解析。\n\nimg[//image-1300566513.cos.ap-guangzhou.myqcloud.com/upload/images/20200414/f74740692dab4d9c937cd56336ead1b4.png]\n\n这样，学习一个开源项目就不再费劲，每天学习一个开源项目，在不知不觉中提升技术水平！目前网站已经收录了近100个开源项目，让Java不再难懂！\n\n直接扫公众号下方的二维码，回复关键字【网站】即可获得网站的域名地址！\n\nimg[//image-1300566513.cos.ap-guangzhou.myqcloud.com/upload/images/20200414/f58f7c6d038c4dfb99bd9cf40935392e.png]\n\n关注上方的公众号二维码\n\n回复【网站】即可获取项目域名地址。\n', '0', '1', '1', '0', '0', '5', '1', '1', '1', '0', '2020-06-24 14:41:41', '2020-04-28 14:41:41');
-INSERT INTO `m_post` VALUES ('2', '关注公众号：MarkerHub，一起学习Java', '关注学习：\n\nimg[//image-1300566513.cos.ap-guangzhou.myqcloud.com/upload/images/20200414/f58f7c6d038c4dfb99bd9cf40935392e.png] ', '0', '1', '1', '0', '0', '3', '0', '1', '1', '0', '2020-05-23 14:55:16', '2020-04-28 14:55:16');
-INSERT INTO `m_post` VALUES ('3', '111111111111', '1222222222222222', '0', '1', '1', '0', '0', '17', '2', '0', '0', '0', '2020-06-25 14:55:48', '2020-04-28 14:55:48');
+INSERT INTO `m_post` VALUES ('1279754797653704707', '第一篇文章', ' 呵呵呵哈或或或或\n呵呵呵呵呵呵呵\nface[拜拜] \n[hr]', '0', '1', '7', '0', '0', '2', '6', '0', '0', '0', '2020-07-05 12:39:17', '2020-07-05 12:39:17', '0');
+INSERT INTO `m_post` VALUES ('1279754797653704708', '大数据该怎么学', ' 324567耳机有人带那么容易你们委托人\n\n让他你今天日内瓦\n[hr]\n一天吗内容', '0', '3', '7', '0', '0', '39', '10', '0', '1', '0', '2020-07-05 12:59:31', '2020-07-05 12:59:31', '0');
 
 -- ----------------------------
 -- Table structure for m_user
@@ -123,20 +143,22 @@ CREATE TABLE `m_user` (
   `lasted` datetime DEFAULT NULL COMMENT '最后的登陆时间',
   `created` datetime NOT NULL COMMENT '创建日期',
   `modified` datetime DEFAULT NULL COMMENT '最后修改时间',
+  `del_flag` int(11) DEFAULT '0' COMMENT '是否删除，0否，1是',
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`) USING BTREE,
   UNIQUE KEY `email` (`email`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=1276845201016573955 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of m_user
 -- ----------------------------
-INSERT INTO `m_user` VALUES ('1', '小红', '96e79218965eb72c92a549dd5a330112', '11111@qq.com', null, '0', '关注公众号：MarkerHub，一起学Java！！', '1', null, '0', null, '/res/images/avatar/default.png', '0', '0', '0', '2020-06-29 14:49:42', '2020-04-28 14:37:24', null);
-INSERT INTO `m_user` VALUES ('2', 'test007', '96e79218965eb72c92a549dd5a330112', '1111@qq.com', null, '0', null, '0', null, '0', null, '/res/images/avatar/default.png', '0', '0', '0', null, '2020-04-28 14:45:07', null);
-INSERT INTO `m_user` VALUES ('3', 'test004', '96e79218965eb72c92a549dd5a330112', '144d11@qq.com', null, '0', null, '0', null, '0', null, '/res/images/avatar/default.png', '0', '0', '0', null, '2020-04-28 14:48:26', null);
-INSERT INTO `m_user` VALUES ('4', 'test005', '96e79218965eb72c92a549dd5a330112', '144d15@qq.com', null, '0', null, '0', null, '0', null, '/res/images/avatar/default.png', '0', '0', '0', null, '2020-04-28 14:48:26', null);
-INSERT INTO `m_user` VALUES ('5', 'test00756', '96e79218965eb72c92a549dd5a330112', '45454541@qq.com', null, '0', null, '0', null, '0', null, '/res/images/avatar/default.png', '0', '0', '0', null, '2020-04-28 14:53:49', null);
-INSERT INTO `m_user` VALUES ('1276845201016573954', '小明', '96e79218965eb72c92a549dd5a330112', '111@123.com', null, '0', '哈哈哈哈哈哈哈', '1', null, '0', null, '/upload/avatar/avatar_1276845201016573954.jpg', '0', '0', '0', '2020-06-29 16:19:45', '2020-06-27 11:49:53', '2020-06-27 11:49:53');
+INSERT INTO `m_user` VALUES ('1', '小红', '96e79218965eb72c92a549dd5a330112', '11111@qq.com', null, '0', '关注公众号：MarkerHub，一起学Java！！', '1', null, '0', null, '/upload/avatar/avatar_1.jpg', '0', '0', '0', '2020-07-05 16:11:03', '2020-04-28 14:37:24', null, '0');
+INSERT INTO `m_user` VALUES ('2', 'test007', '96e79218965eb72c92a549dd5a330112', '1111@qq.com', null, '0', null, '0', null, '0', null, '/res/images/avatar/default.png', '0', '0', '0', null, '2020-04-28 14:45:07', null, '0');
+INSERT INTO `m_user` VALUES ('3', 'test004', '96e79218965eb72c92a549dd5a330112', '144d11@qq.com', null, '0', null, '0', null, '0', null, '/res/images/avatar/default.png', '0', '0', '0', null, '2020-04-28 14:48:26', null, '0');
+INSERT INTO `m_user` VALUES ('4', 'test005', '96e79218965eb72c92a549dd5a330112', '144d15@qq.com', null, '0', null, '0', null, '0', null, '/res/images/avatar/default.png', '0', '0', '0', null, '2020-04-28 14:48:26', null, '0');
+INSERT INTO `m_user` VALUES ('5', 'test00756', '96e79218965eb72c92a549dd5a330112', '45454541@qq.com', null, '0', null, '0', null, '0', null, '/res/images/avatar/default.png', '0', '0', '0', null, '2020-04-28 14:53:49', null, '0');
+INSERT INTO `m_user` VALUES ('6', '小明', '96e79218965eb72c92a549dd5a330112', '111@123.com', null, '0', '哈哈哈哈哈哈哈', '1', null, '0', null, '/upload/avatar/avatar_1276845201016573954.jpg', '0', '0', '0', '2020-07-07 14:58:06', '2020-06-27 11:49:53', '2020-06-27 11:49:53', '0');
+INSERT INTO `m_user` VALUES ('7', 'admin', '96e79218965eb72c92a549dd5a330112', 'admin@123.com', null, '0', null, '0', null, '0', null, '/upload/avatar/avatar_7.gif', '0', '0', '0', '2020-07-13 15:31:52', '2020-07-05 04:35:57', '2020-07-05 04:35:57', '0');
 
 -- ----------------------------
 -- Table structure for m_user_action
@@ -151,6 +173,8 @@ CREATE TABLE `m_user_action` (
   `comment_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '关联的评论ID',
   `created` datetime DEFAULT NULL,
   `modified` datetime DEFAULT NULL,
+  `del_flag` int(11) DEFAULT '0' COMMENT '是否删除，0否，1是',
+  `status` int(11) DEFAULT '0' COMMENT '状态',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 
@@ -169,8 +193,10 @@ CREATE TABLE `m_user_collection` (
   `post_user_id` bigint(20) NOT NULL,
   `created` datetime NOT NULL,
   `modified` datetime NOT NULL,
+  `del_flag` int(11) DEFAULT '0' COMMENT '是否删除，0否，1是',
+  `status` int(11) DEFAULT '0' COMMENT '状态',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=1279422257998868482 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of m_user_collection
@@ -182,18 +208,29 @@ CREATE TABLE `m_user_collection` (
 DROP TABLE IF EXISTS `m_user_message`;
 CREATE TABLE `m_user_message` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `from_user_id` bigint(20) NOT NULL COMMENT '发送消息的用户ID',
-  `to_user_id` bigint(20) NOT NULL COMMENT '接收消息的用户ID',
+  `from_user_id` bigint(20) DEFAULT NULL COMMENT '发送消息的用户ID',
+  `to_user_id` bigint(20) DEFAULT NULL COMMENT '接收消息的用户ID',
   `post_id` bigint(20) DEFAULT NULL COMMENT '消息可能关联的帖子',
   `comment_id` bigint(20) DEFAULT NULL COMMENT '消息可能关联的评论',
   `content` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `type` tinyint(2) DEFAULT NULL COMMENT '消息类型',
   `created` datetime NOT NULL,
   `modified` datetime DEFAULT NULL,
-  `status` int(11) DEFAULT NULL,
+  `status` int(11) DEFAULT '0',
+  `del_flag` int(11) DEFAULT '0' COMMENT '是否删除，0否，1是',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of m_user_message
 -- ----------------------------
+INSERT INTO `m_user_message` VALUES ('4', '1', '7', '1279754797653704708', '1279754875202191371', '你好', '1', '2020-07-05 13:24:27', '2020-07-05 13:24:27', '1', '0');
+INSERT INTO `m_user_message` VALUES ('5', '6', '7', '1279754797653704707', '1279754875202191372', '不错', '1', '2020-07-05 13:45:33', '2020-07-05 13:45:33', '1', '0');
+INSERT INTO `m_user_message` VALUES ('6', '1', '7', '1279754797653704708', '1279754875202191373', '@小明 666', '1', '2020-07-05 14:13:51', '2020-07-05 14:13:51', '1', '0');
+INSERT INTO `m_user_message` VALUES ('7', '1', '6', '1279754797653704708', '1279754875202191373', '@小明 666', '2', '2020-07-05 14:13:51', '2020-07-05 14:13:51', '1', '0');
+INSERT INTO `m_user_message` VALUES ('8', '7', '6', '1279754797653704708', '1279754875202191374', '@小明 小明好', '2', '2020-07-05 14:16:41', '2020-07-05 14:16:41', '1', '0');
+INSERT INTO `m_user_message` VALUES ('9', '6', '7', '1279754797653704708', '1279754875202191375', '@admin 好好好好', '1', '2020-07-05 14:17:41', '2020-07-05 14:17:41', '1', '0');
+INSERT INTO `m_user_message` VALUES ('11', '6', '7', '1279754797653704708', '1279754875202191377', '哈哈哈', '1', '2020-07-05 16:02:29', '2020-07-05 16:02:29', '0', '0');
+INSERT INTO `m_user_message` VALUES ('12', '6', '7', '1279754797653704708', '1279754875202191379', '在不', '1', '2020-07-05 16:06:58', '2020-07-05 16:06:58', '1', '0');
+INSERT INTO `m_user_message` VALUES ('13', '6', '7', '1279754797653704708', '1279754875202191380', '有人吗', '1', '2020-07-05 16:07:10', '2020-07-05 16:07:10', '1', '0');
+INSERT INTO `m_user_message` VALUES ('14', '1', '6', '1279754797653704708', '1279754875202191383', '@小明 23456', '2', '2020-07-05 16:11:27', '2020-07-05 16:11:27', '0', '0');
