@@ -40,11 +40,10 @@ public class GlobalExceptionHandler {
 
         }
 
-        log.error("not authenticated - web请求未登录");
-        mav.addObject("exception", e);
-        mav.addObject("url", req.getRequestURL());
-        mav.setViewName("/login");
-        return mav;
+        // web处理
+        ModelAndView modelAndView = new ModelAndView("error");
+        modelAndView.addObject("message", e.getMessage());
+        return modelAndView;
     }
 
     @ExceptionHandler(value = HwException.class)

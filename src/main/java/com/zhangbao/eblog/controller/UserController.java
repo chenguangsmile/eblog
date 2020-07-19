@@ -44,8 +44,8 @@ public class UserController extends BaseController {
      * 我的主页
      * @return
      */
-    @GetMapping("/home/{id}")
-    public String home(@PathVariable("id") Long id){
+    @GetMapping("/home")
+    public String home(Long id){
 
         Map<String ,Object> map = new HashMap<>();
         if(id==null){

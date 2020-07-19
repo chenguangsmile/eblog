@@ -59,14 +59,14 @@
 
           <ul class="jieda" id="jieda">
             <#list pageData.records as comment>
-              <li data-id="${comment.id}" class="jieda-daan">
-              <a name="item-${comment.id}"></a>
+              <li data-id="${comment.id?c}" class="jieda-daan">
+              <a name="item-${comment.id?c}"></a>
               <div class="detail-about detail-about-reply">
-                <a class="fly-avatar" href="/user/home/${comment.authorId}">
+                <a class="fly-avatar" href="/user/home/${comment.authorId?c}">
                   <img src="${comment.authorAvatar}" alt="${comment.authorName}">
                 </a>
                 <div class="fly-detail-user">
-                  <a href="/user/home/${comment.authorId}" class="fly-link">
+                  <a href="/user/home/${comment.authorId?c}" class="fly-link">
                     <cite>${comment.authorName}</cite>
                   </a>
 
@@ -79,7 +79,7 @@
                   <span>${timeAgo(comment.created)}</span>
                 </div>
 
-                <i class="iconfont icon-caina" title="最佳答案"></i>
+<#--                <i class="iconfont icon-caina" title="最佳答案"></i>-->
               </div>
               <div class="detail-body jieda-body photos">
                 ${comment.content}
