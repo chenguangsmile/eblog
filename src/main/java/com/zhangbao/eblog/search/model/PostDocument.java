@@ -17,7 +17,6 @@ public class PostDocument implements Serializable {
     @Id
     private Long id;
     //ik分词
-//    @Field(type = FieldType.Text)
     @Field(type = FieldType.Text,searchAnalyzer = "ik_smart",analyzer = "ik_max_word")
     private String title;
     @Field(type = FieldType.Long)
@@ -36,7 +35,7 @@ public class PostDocument implements Serializable {
     @Field(type = FieldType.Keyword)
     private String categoryName;
 
-    @Field(type = FieldType.Date,format= DateFormat.basic_date_time)
+    @Field(type = FieldType.Date)
     private Date created;
 
 }

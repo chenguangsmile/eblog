@@ -2,7 +2,9 @@ package com.zhangbao.eblog.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.zhangbao.eblog.service.SearchService;
 import com.zhangbao.eblog.vo.PostVo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +16,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 @Controller
 public class IndexController extends BaseController {
+
+    @Autowired
+    private SearchService searchService;
+
     @RequestMapping({"", "/", "/index"})
     public String index () {
         //1分页信息，2分类，3用户，4置顶，5精选，6排序
@@ -27,8 +33,10 @@ public class IndexController extends BaseController {
     @RequestMapping("/search")
     public String search(String q){
 
+        IPage page = searchService.search(getPage(),q);
+
         req.setAttribute("q",q);
-        req.setAttribute("pageData",null);
+        req.setAttribute("pageData",page);
         return "search";
     }
 }
