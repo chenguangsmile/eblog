@@ -5,6 +5,7 @@ import com.zhangbao.eblog.entity.User;
 import com.zhangbao.eblog.service.*;
 import com.zhangbao.eblog.util.UploadUtil;
 import org.apache.shiro.SecurityUtils;
+import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.ServletRequestUtils;
 
@@ -31,6 +32,8 @@ public class BaseController {
     CategoryService categoryService;
     @Autowired
     UserMessageService userMessageService;
+    @Autowired
+    AmqpTemplate amqpTemplate;
 
     public Page getPage(){
         int pageNum = ServletRequestUtils.getIntParameter(req, "pageNum", 1);

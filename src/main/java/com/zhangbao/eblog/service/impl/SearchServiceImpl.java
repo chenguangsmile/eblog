@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.google.common.collect.Lists;
 import com.zhangbao.eblog.search.model.PostDocument;
+import com.zhangbao.eblog.search.mq.PostMqIndexMessage;
 import com.zhangbao.eblog.search.repository.PostRepository;
 import com.zhangbao.eblog.service.SearchService;
 import com.zhangbao.eblog.vo.PostVo;
@@ -61,5 +62,10 @@ public class SearchServiceImpl implements SearchService {
         }
         postRepository.saveAll(list);
         return list.size();
+    }
+
+    @Override
+    public void createOrUpdate(PostMqIndexMessage message) {
+
     }
 }

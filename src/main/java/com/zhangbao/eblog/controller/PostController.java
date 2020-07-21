@@ -7,7 +7,9 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.zhangbao.eblog.common.lang.Result;
 import com.zhangbao.eblog.common.lang.ResultData;
+import com.zhangbao.eblog.config.RabbitMpConfig;
 import com.zhangbao.eblog.entity.*;
+import com.zhangbao.eblog.search.mq.PostMqIndexMessage;
 import com.zhangbao.eblog.util.ValidationUtil;
 import com.zhangbao.eblog.vo.CommentVo;
 import com.zhangbao.eblog.vo.PostVo;
@@ -177,6 +179,9 @@ public class PostController extends BaseController {
             postService.updateById(temPost);
         }
 
+        //发送到mq
+        amqpTemplate.convertAndSend(RabbitMpConfig.ES_EXCHANGE,RabbitMpConfig.ES_BIND_KEY, new PostMqIndexMessage(post.getId(),PostMqIndexMessage.CREATE_UPDATE));
+
 
         return Result.succ().action("/post/detail/"+post.getId());
     }
@@ -193,6 +198,8 @@ public class PostController extends BaseController {
         postService.removeById(id);
         userMessageService.removeByMap(MapUtil.of("post_id",id));
         userCollectionService.removeByMap(MapUtil.of("post_id",id));
+        //发送到mq
+        amqpTemplate.convertAndSend(RabbitMpConfig.ES_EXCHANGE,RabbitMpConfig.ES_BIND_KEY, new PostMqIndexMessage(post.getId(),PostMqIndexMessage.DELETE));
         return Result.succ();
     }
 
