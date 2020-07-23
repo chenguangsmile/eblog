@@ -34,6 +34,8 @@ public class BaseController {
     UserMessageService userMessageService;
     @Autowired
     AmqpTemplate amqpTemplate;
+    @Autowired
+    ChatService chatService;
 
     public Page getPage(){
         int pageNum = ServletRequestUtils.getIntParameter(req, "pageNum", 1);

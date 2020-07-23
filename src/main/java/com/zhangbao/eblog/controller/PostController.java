@@ -200,7 +200,7 @@ public class PostController extends BaseController {
         userCollectionService.removeByMap(MapUtil.of("post_id",id));
         //发送到mq
         amqpTemplate.convertAndSend(RabbitMpConfig.ES_EXCHANGE,RabbitMpConfig.ES_BIND_KEY, new PostMqIndexMessage(post.getId(),PostMqIndexMessage.DELETE));
-        return Result.succ();
+        return Result.succ().action("/");
     }
 
     /**

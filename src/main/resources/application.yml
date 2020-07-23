@@ -16,17 +16,19 @@ spring:
     password:
   data:
 ## es-v6.8.8
+## webUI: http://192.168.245.21:9100
 ## webUI: http://192.168.88.61:9100
     elasticsearch:
       cluster-name: my-es
-      cluster-nodes: 192.168.88.61:9300,192.168.88.62:9300,192.168.88.63:9300
+      cluster-nodes: 192.168.245.21:9300,192.168.245.23:9300,192.168.245.24:9300
+#      cluster-nodes: 192.168.88.61:9300,192.168.88.62:9300,192.168.88.63:9300
       repositories:
         enabled: true
   rabbitmq:
     username: guest
     password: guest
     host: localhost
-    port: 15672
+    port: 5672
 mybatis-plus:
   mapper-locations: classpath*:/mapper/**Mapper.xml
   global-config:
@@ -37,3 +39,6 @@ mybatis-plus:
 file:
   upload:
     dir: ${user.dir}/upload
+im:
+  server:
+    port: 9326

@@ -12,5 +12,7 @@ public interface SearchService {
 
     int initEsData(List<PostVo> records);
 
-    void createOrUpdate(PostMqIndexMessage message);
+    void createOrUpdateIndex(PostMqIndexMessage message);
+
+    void removeIndex(PostMqIndexMessage message);
 }

@@ -1,11 +1,14 @@
 package com.zhangbao.eblog.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.google.common.collect.Lists;
+import com.zhangbao.eblog.entity.Post;
 import com.zhangbao.eblog.search.model.PostDocument;
 import com.zhangbao.eblog.search.mq.PostMqIndexMessage;
 import com.zhangbao.eblog.search.repository.PostRepository;
+import com.zhangbao.eblog.service.PostService;
 import com.zhangbao.eblog.service.SearchService;
 import com.zhangbao.eblog.vo.PostVo;
 import org.elasticsearch.index.query.MultiMatchQueryBuilder;
@@ -28,6 +31,8 @@ public class SearchServiceImpl implements SearchService {
 
     @Autowired
     PostRepository postRepository;
+    @Autowired
+    PostService postService;
 
     @Override
     public IPage search(Page page, String keyword) {
@@ -35,7 +40,7 @@ public class SearchServiceImpl implements SearchService {
         Long current = page.getCurrent()-1;
         Long size = page.getSize();
         Pageable pageable = PageRequest.of(current.intValue(),size.intValue());
-        MultiMatchQueryBuilder matchQueryBuilder = QueryBuilders.multiMatchQuery(keyword, "title", "categoryName", "authorName");
+        MultiMatchQueryBuilder matchQueryBuilder = QueryBuilders.multiMatchQuery(keyword, "title", "categoryName", "authorName","content");
         org.springframework.data.domain.Page<PostDocument> search = postRepository.search(matchQueryBuilder, pageable);
         //            输出查询字符串
         SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
@@ -65,7 +70,28 @@ public class SearchServiceImpl implements SearchService {
     }
 
     @Override
-    public void createOrUpdate(PostMqIndexMessage message) {
+    public void createOrUpdateIndex(PostMqIndexMessage message) {
+        QueryWrapper<Post> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("p.id",message.getPostId());
+        PostVo postVo = postService.selectOnePost(queryWrapper);
+        if(postVo==null){
+            LOGGER.error("贴子已被删除");
+            return;
+        }
 
+        PostDocument postDocument = new PostDocument();
+
+        BeanUtils.copyProperties(postVo,postDocument);
+        postRepository.save(postDocument);
+        LOGGER.error("es 索引更新成功 == > {}",postDocument.toString());
+
+    }
+
+    @Override
+    public void removeIndex(PostMqIndexMessage message) {
+        PostDocument postDocument = new PostDocument();
+        postDocument.setId(message.getPostId());
+        postRepository.delete(postDocument);
+        LOGGER.error("es 删除索引成功 -- {}",message.toString());
     }
 }
