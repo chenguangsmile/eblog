@@ -7,8 +7,8 @@ tio.ws = function($,layim) {
 
     var self = this;
 
-    var url = "ws://localhost:9326"
     this.connect = function () {
+        var url = "ws://localhost:9326?userId="+self.userId
         var  socket = new WebSocket(url);
         self.socket = socket;
         socket.onopen = function (ev) {
@@ -37,6 +37,7 @@ tio.ws = function($,layim) {
             success: function (res) {
                 self.group = res.data.group;
                 self.mine = res.data.mine;
+                self.userId = res.data.mine.id;
             }
         })
         var cache =  layui.layim.cache();

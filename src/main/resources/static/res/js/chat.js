@@ -13,13 +13,15 @@ layui.use('layim', function(layim){
         brief: true //是否简约模式（如果true则不显示主面板）
     })
     var tioWs = new tio.ws($,layim);
+
+    //获取个人信息，打开群聊
+    tioWs.openChatWindow();
     //建立ws链接
     tioWs.connect()
 
     //获取历史聊天记录
 
-    //获取个人信息，打开群聊
-    tioWs.openChatWindow();
+
     //发送消息
     layim.on('sendMessage', function(res){
         tioWs.sendChatMsg(res)

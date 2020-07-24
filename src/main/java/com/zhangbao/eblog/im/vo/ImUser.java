@@ -18,4 +18,7 @@ public class ImUser {
     private String sign;
     private String avatar;
 
+    private Boolean mine;
+    private String content;
+
 }

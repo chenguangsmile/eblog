@@ -25,6 +25,7 @@ public class MsgHandlerFactory {
     }
 
     public static MsgHandler getMsgHandler(String type){
+        LOGGER.error("获取 tio handler - {}",type);
         MsgHandler msgHandler = handlerMap.get(type);
         return msgHandler;
     }

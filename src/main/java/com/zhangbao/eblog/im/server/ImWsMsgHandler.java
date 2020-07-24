@@ -2,11 +2,13 @@ package com.zhangbao.eblog.im.server;
 
 import cn.hutool.core.map.MapUtil;
 import cn.hutool.json.JSONUtil;
+import com.zhangbao.eblog.common.lang.Consts;
 import com.zhangbao.eblog.im.handler.MsgHandler;
 import com.zhangbao.eblog.im.handler.MsgHandlerFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tio.core.ChannelContext;
+import org.tio.core.Tio;
 import org.tio.http.common.HttpRequest;
 import org.tio.http.common.HttpResponse;
 import org.tio.websocket.common.WsRequest;
@@ -33,6 +35,11 @@ public class ImWsMsgHandler implements IWsMsgHandler {
     @Override
     public HttpResponse handshake(HttpRequest httpRequest, HttpResponse httpResponse, ChannelContext channelContext) throws Exception {
 
+        //绑定个人通道
+        String userId = httpRequest.getParam("userId");
+        LOGGER.error("{} ----- 已上线",userId);
+        Tio.bindUser(channelContext,userId);
+
         return httpResponse;
     }
 
@@ -45,6 +52,10 @@ public class ImWsMsgHandler implements IWsMsgHandler {
      */
     @Override
     public void onAfterHandshaked(HttpRequest httpRequest, HttpResponse httpResponse, ChannelContext channelContext) throws Exception {
+
+        //绑定群聊通道，群聊名称
+        Tio.bindGroup(channelContext, Consts.IM_GROUP_NAME);
+        LOGGER.error("已绑定群 --- {}",Consts.IM_GROUP_NAME);
 
     }
 
@@ -80,6 +91,7 @@ public class ImWsMsgHandler implements IWsMsgHandler {
         //根据类型获取对应的处理器
         MsgHandler msgHandler = MsgHandlerFactory.getMsgHandler(type);
         //处理消息
+        msgHandler.handler(data,wsRequest,channelContext);
 
         return null;
     }
