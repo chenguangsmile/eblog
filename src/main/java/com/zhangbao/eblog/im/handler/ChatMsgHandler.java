@@ -38,7 +38,7 @@ public class ChatMsgHandler implements MsgHandler {
         ImMessage imMessage = new ImMessage();
         imMessage.setAvatar(mine.getAvatar());
         imMessage.setContent(mine.getContent());
-        imMessage.setUserName(mine.getUsername());
+        imMessage.setUsername(mine.getUsername());
         imMessage.setFromid(mine.getId());
         imMessage.setMine(false);
 

@@ -12,7 +12,7 @@ import java.util.Date;
 @Data
 public class ImMessage {
 
-    private String userName;
+    private String username;
     private String avatar;
     private String type;//聊天窗口来源类型
     private String content;
