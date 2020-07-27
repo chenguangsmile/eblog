@@ -1,12 +1,18 @@
 package com.zhangbao.eblog.service.impl;
 
 import cn.hutool.core.util.RandomUtil;
+import com.zhangbao.eblog.common.lang.Consts;
 import com.zhangbao.eblog.entity.User;
+import com.zhangbao.eblog.im.vo.ImMessage;
 import com.zhangbao.eblog.im.vo.ImUser;
 import com.zhangbao.eblog.service.ChatService;
+import com.zhangbao.eblog.util.RedisUtil;
 import com.zhangbao.eblog.util.UserUtils;
 import org.apache.shiro.SecurityUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @author Sunny
@@ -14,6 +20,10 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class ChatServiceImpl implements ChatService {
+
+    @Autowired
+    RedisUtil redisUtil;
+
     @Override
     public ImUser getCurrentUser() {
 
@@ -41,5 +51,17 @@ public class ChatServiceImpl implements ChatService {
             imUser.setSign("Never give up!");
         }
         return imUser;
+    }
+
+    @Override
+    public void setGroupHistoryMsg(ImMessage imMessage) {
+        redisUtil.lSet(Consts.IM_GROUP_HISTORY_MSG_KEY,imMessage,24*60*60);
+    }
+
+    @Override
+    public List<Object> getGroupHistoryMsg(int count) {
+        long length = redisUtil.lGetListSize(Consts.IM_GROUP_HISTORY_MSG_KEY);
+        List<Object> list = redisUtil.lGet(Consts.IM_GROUP_HISTORY_MSG_KEY, length - count < 0 ? 0 : length - count, length);
+        return list;
     }
 }

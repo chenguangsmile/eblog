@@ -11,6 +11,7 @@ layui.use('layim', function(layim){
     var $ = layui.jquery;
     layim.config({
         brief: true //是否简约模式（如果true则不显示主面板）
+        ,chatLog: layui.cache.dir + 'css/modules/layim/html/chatlog.html'
     })
     var tioWs = new tio.ws($,layim);
 
@@ -20,7 +21,7 @@ layui.use('layim', function(layim){
     tioWs.connect()
 
     //获取历史聊天记录
-
+    tioWs.initHistoryMsg()
 
     //发送消息
     layim.on('sendMessage', function(res){

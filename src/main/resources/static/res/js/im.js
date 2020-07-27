@@ -8,22 +8,29 @@ tio.ws = function($,layim) {
     var self = this;
 
     this.connect = function () {
-        var url = "ws://localhost:9326?userId="+self.userId
+        var url = "ws://172.17.30.21:9326?userId="+self.userId
         var  socket = new WebSocket(url);
         self.socket = socket;
         socket.onopen = function (ev) {
             console.log("tio ws 启动 --"+ev)
             console.log(ev)
         }
+        socket.onclose = function (ev) {
+            console.log("tio ws 关闭 --"+ev)
+            console.log(ev)
+        }
         socket.onmessage = function (res) {
             console.log("接收消息！")
             console.log(res)
+
+            // res = JSON.parse(res);
+            res = eval('('+res.data+')');
+
+            if(res.emit === 'chatMessage'){
+                layim.getMessage(res.data); //res.data即你发送消息传递的数据（阅读：监听发送的消息）
+            }
         }
 
-        // socket.onclose = function (ev) {
-        //     console.log("tio ws 关闭 --"+ev)
-        //     console.log(ev)
-        // }
 
 
     }
@@ -56,7 +63,19 @@ tio.ws = function($,layim) {
     }
 
     this.initHistoryMsg = function () {
+        localStorage.clear();
+        $.ajax({url:"/chat/getGroupHistoryMsg",type:"post"
+            ,success:function (res) {
+                var data = res.data;
+                if(data.length<1){
+                    return;
+                }
+                for (var i in data){
+                    layim.getMessage(data[i])
+                }
 
+            }
+        })
     }
 
 }

@@ -1,6 +1,9 @@
 package com.zhangbao.eblog.service;
 
+import com.zhangbao.eblog.im.vo.ImMessage;
 import com.zhangbao.eblog.im.vo.ImUser;
+
+import java.util.List;
 
 /**
  * @author Sunny
@@ -8,4 +11,9 @@ import com.zhangbao.eblog.im.vo.ImUser;
  */
 public interface ChatService {
     ImUser getCurrentUser();
+
+    void setGroupHistoryMsg(ImMessage imMessage);
+
+    List<Object> getGroupHistoryMsg(int count);
+
 }

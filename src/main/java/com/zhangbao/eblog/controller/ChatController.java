@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -33,12 +34,19 @@ public class ChatController extends BaseController {
         map.put("name","小豹群聊");
         map.put("type","group");
         map.put("avatar","http://tp2.sinaimg.cn/5488749285/50/5719808192/1");
-        map.put("id", Consts.IM_DEFAULT_USER_ID);
+        map.put("id", Consts.IM_GROUP_ID);
         map.put("members",2);
 
         ImUser imUser = chatService.getCurrentUser();
 
         return Result.succ(MapUtil.builder().put("group",map).put("mine",imUser).map());
+    }
+
+    @ResponseBody
+    @PostMapping("/getGroupHistoryMsg")
+    public Result getGroupHistoryMsg(String id,String type){
+        List<Object> msgList = chatService.getGroupHistoryMsg(20);
+        return Result.succ(msgList);
     }
 
 }

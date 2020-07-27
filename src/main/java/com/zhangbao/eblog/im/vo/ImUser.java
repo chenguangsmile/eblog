@@ -3,6 +3,7 @@ package com.zhangbao.eblog.im.vo;
 import lombok.Data;
 
 /**
+ * 发送消息
  * @author Sunny
  * @create 2020-07-2020/7/23-19:09
  */

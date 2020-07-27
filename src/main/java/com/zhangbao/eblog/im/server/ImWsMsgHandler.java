@@ -55,7 +55,7 @@ public class ImWsMsgHandler implements IWsMsgHandler {
 
         //绑定群聊通道，群聊名称
         Tio.bindGroup(channelContext, Consts.IM_GROUP_NAME);
-        LOGGER.error("已绑定群 --- {}",Consts.IM_GROUP_NAME);
+        LOGGER.error("已绑定群 --- {}",channelContext.getId());
 
     }
 
